@@ -1,0 +1,22 @@
+{
+    "mta_multi_turn_mamrp": {
+        "file_name": "multi_turn_mamrp/processed/meta_thinking.jsonl",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "system": "system",
+            "history": "history"
+        }
+    },
+    "ra_multi_turn_mamrp": {
+        "file_name": "multi_turn_mamrp/processed/reasoning.jsonl",
+        "columns": {
+            "prompt": "instruction",
+            "query": "input",
+            "response": "output",
+            "system": "system",
+            "history": "history"
+        }
+    }
+}

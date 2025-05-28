@@ -140,14 +140,19 @@ class ReMARewardManager:
             
             num_turns = data_item.non_tensor_batch['num_turns']
             
-            for role in agent_roles:
+            for i, role in enumerate(agent_roles):
+                turn_finished = data_item.batch[f'{role}_turn_finished'].item()
                 if data_item.meta_info['mask_unfinished_reward']:
-                    turn_finished = data_item.batch[f'{role}_turn_finished'].item()
                     # if conversation is not finised normally, i.e. with ['FINISH']
                     #  the reward should be zero.
+                    # `turn_finished` is 0 means finished normally.
                     score = score if turn_finished == 0 else 0.0
-                else:
-                    if max_num_turns == 1 and 'boxed' in response_str:
+
+                if turn_finished == 0 and data_item.meta_info['use_format_reward'] and max_num_turns == 1:
+                    # XXX(ziyu): only add format reward for normally finished 1-turn conversation
+                    last_round_msg = data_item.non_tensor_batch['history'][i]
+                    assert last_round_msg['role'] == role, role
+                    if 'boxed' in last_round_msg['content']:
                         if role == 'meta-thinking':
                             score -= 0.25
                         elif role == 'reasoning':

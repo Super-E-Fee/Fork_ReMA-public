@@ -513,6 +513,11 @@ class RayReMATrainer(object):
         
         if config.actor_rollout_ref.actor.clip_mode == 'turn':
             assert config.actor_rollout_ref.actor.agg_mode != 'token'
+        
+        if config.reward_model.get('use_format_reward', False):
+            assert config.actor_rollout_ref.rollout.max_num_turns == 1, \
+                "use_format_reward only support max_num_turns==1"
+
 
         print("[validate_config] All configuration checks passed successfully!")
 
@@ -726,6 +731,7 @@ class RayReMATrainer(object):
 
             test_batch = test_batch.union(test_output_gen_batch)
             test_batch.meta_info['mask_unfinished_reward'] = self.config.reward_model.mask_unfinished_reward
+            test_batch.meta_info['use_format_reward'] = self.config.reward_model.get('use_format_reward', False)
             # evaluate using reward_function
             reward_tensor = self.val_reward_fn(test_batch)
             reward_tensor_lst.append(reward_tensor['reasoning_turn_level_reward'])
@@ -1157,6 +1163,7 @@ class RayReMATrainer(object):
 
                         # add mask_unfinished_reward to meta_info
                         new_batch.meta_info['mask_unfinished_reward'] = self.config.reward_model.mask_unfinished_reward
+                        new_batch.meta_info['use_format_reward'] = self.config.reward_model.get('use_format_reward', False)
                         # rule-based rm build token-level reward_tensor_map for each agent
                         # {
                         #     "meta_thinking_turn_level_reward": tensor([...], device='cuda:0'),

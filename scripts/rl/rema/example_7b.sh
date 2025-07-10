@@ -1,9 +1,17 @@
 echo $(which python)
 
-WORKSPACE={YOUR_WORKSPACE}
-PROJECT_NAME={YOUR_PROJECT_NAME}
-EXPERIMENT_NAME={YOUR_EXPERIMENT_NAME}
-MODEL_PATH={YOUR_MODEL_PATH}
+WORKSPACE=/home/Documents/Fork_ReMA-public/
+#{YOUR_WORKSPACE} 
+
+PROJECT_NAME=my_study
+#{YOUR_PROJECT_NAME}
+
+EXPERIMENT_NAME=rema_replica
+#{YOUR_EXPERIMENT_NAME}
+
+MODEL_PATH=/home/Documents/Fork_ReMA-public/models/
+#{YOUR_MODEL_PATH}
+# HYDRA_FULL_ERROR=1
 
 python -m verl.rema_trainer.main_ppo \
     trainer.project_name=$PROJECT_NAME \

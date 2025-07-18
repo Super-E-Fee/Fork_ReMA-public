@@ -9,15 +9,19 @@ PROJECT_NAME=my_study
 EXPERIMENT_NAME=rema_replica
 #{YOUR_EXPERIMENT_NAME}
 
-MODEL_PATH=/home/Documents/Fork_ReMA-public/models/
+MODEL_PATH=/home/Documents/Fork_ReMA-public/models/Qwen2-1.5B-Instruct  
 #{YOUR_MODEL_PATH}
-# HYDRA_FULL_ERROR=1
 
+# export http_proxy="http://100.68.170.107:3128"
+# export https_proxy="http://100.68.170.107:3128"
+
+# export WANDB_API_KEY="6b346ec6180484ba6de67fe7af10237990e0f331"
+export HYDRA_FULL_ERROR=1
 python -m verl.rema_trainer.main_ppo \
     trainer.project_name=$PROJECT_NAME \
     trainer.experiment_name=$EXPERIMENT_NAME \
     trainer.nnodes=1 \
-    trainer.n_gpus_per_node=8 \
+    trainer.n_gpus_per_node=1\
     data.train_files=data/MATH/train_lv3to5_8k.parquet \
     data.val_files=data/overall_math/test.parquet \
     data.val_batch_size=512 \
@@ -33,6 +37,7 @@ python -m verl.rema_trainer.main_ppo \
     actor_rollout_ref.actor.ulysses_sequence_parallel_size=1 \
     actor_rollout_ref.actor.ppo_mini_batch_size=512 \
     actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 \
+    +actor_rollout_ref.model.gpu_memory_utilization=0.8\
     actor_rollout_ref.actor.clip_mode=turn \
     actor_rollout_ref.actor.agg_mode=trajectory \
     actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=32 \
@@ -56,4 +61,5 @@ python -m verl.rema_trainer.main_ppo \
     reward_model.reward_manager=rema \
     reward_model.mask_unfinished_reward=True \
     algorithm.filter_groups.enable=False \
-    trainer.logger=[console,wandb]
+    trainer.logger=[console]
+    # trainer.logger=[console,wandb]

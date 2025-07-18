@@ -29,13 +29,17 @@ We also proposed a turn-level ratio for clip and loss averaging, which is more e
 we recommend using cuda12.4 + torch2.6 + python3.10.
 ```bash
 conda create -n rema python=3.10
+
 conda activate rema
+
+pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+
 # install flash-attn (faster)
-# wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
-# pip install flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl --no-build-isolation
+wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+pip install flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl --no-build-isolation
 
 # install flash-attn
-pip install flash-attn==2.7.4.post1 --no-build-isolation
+# pip install flash-attn==2.7.4.post1 --no-build-isolation
 
 # for sft
 cd src/360-LLaMA-Factory
@@ -47,7 +51,15 @@ pip install -e .
 
 # update libs
 pip install -r requirements.txt
+
+
+#!/bin/bash
+conda clean --all -y
+pip cache purge
+rm -rf ~/.cache/pip
+echo "Conda and pip caches cleaned!"
 ```
+
 
 ## Training
 

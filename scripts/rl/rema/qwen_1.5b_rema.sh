@@ -9,7 +9,7 @@ PROJECT_NAME=my_study
 EXPERIMENT_NAME=rema_replica
 #{YOUR_EXPERIMENT_NAME}
 
-MODEL_PATH=/home/Documents/Fork_ReMA-public/models/Qwen/Qwen3-1.7B
+MODEL_PATH=/home/Documents/Fork_ReMA-public/models/Qwen/Qwen2-1.5B-Instruct
 #{YOUR_MODEL_PATH}
 
 # export http_proxy="http://100.68.170.107:3128"

@@ -67,6 +67,9 @@ echo "Conda and pip caches cleaned!"
 ### How to run scripts
 To run the training, you can see `scripts/rl/rema/example_7b.sh` as an example.
 ```bash
+
+bash scripts/rl/rema/qwen_1.7b_rema.sh
+
 bash scripts/rl/rema/example_7b.sh
 ```
 
